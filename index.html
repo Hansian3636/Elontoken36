@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Customization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 350px;
+            background: #333;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .form-container {
+            text-align: left;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .form-container input[type="file"] {
+            padding: 0;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #ff9900;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Customize Your Profile</h2>
+        <div class="form-container">
+            <label for="nameInput">Name:</label>
+            <input type="text" id="nameInput" placeholder="Enter your name">
+
+            <label for="profilePicInput">Profile Picture:</label>
+            <input type="file" id="profilePicInput" accept="image/*">
+
+            <button onclick="saveProfile()">Save and Play</button>
+        </div>
+    </div>
+
+    <script>
+        function saveProfile() {
+            const name = document.getElementById('nameInput').value;
+            const profilePicFile = document.getElementById('profilePicInput').files[0];
+
+            if (name) {
+                localStorage.setItem('userName', name);
+            }
+
+            if (profilePicFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    localStorage.setItem('profilePic', e.target.result);
+                    window.location.href = 'hamster-combat.html';
+                }
+                reader.readAsDataURL(profilePicFile);
+            } else {
+                window.location.href = 'hamster-combat.html';
+            }
+        }
+    </script>
+</body>
+</html>
